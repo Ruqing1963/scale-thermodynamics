@@ -136,6 +136,35 @@ def part_d(L=16, m2_i=0.01, m2_f=1.0, durations=(0.2, 2.0, 20.0), M=100000, step
     print(f"    reverse protocol: min w_f^2/w_i^2 = {ratio_rev:.3f} < 1/2, so the reverse Jarzynski estimator has "
           f"infinite variance in the sudden limit")
 
+    def log_second_moment(m2_start, m2_end, T, n_steps):
+        """Exact ln E[e^{-2W}] summed over modes for the switch-then-relax protocol (Gaussian propagation of the
+        tilted density A exp(-b phi^2/2)); +inf if b reaches 0, i.e. the second moment diverges."""
+        m2 = np.linspace(m2_start, m2_end, n_steps + 1)
+        dt = T / n_steps
+        b = q2 + m2[0]
+        out = 0.0
+        for n in range(n_steps):
+            bn = b + 2 * (m2[n + 1] - m2[n])          # tilt by e^{-2 dW}, dW = (1/2) dm^2 phi^2
+            if np.any(bn <= 0):
+                return np.inf
+            out += 0.5 * np.sum(np.log(b / bn))
+            w2 = q2 + m2[n + 1]
+            a = np.exp(-w2 * dt)
+            b = 1.0 / (a * a / bn + (1 - a * a) / w2)   # exact OU relaxation of the variance
+        return out
+
+    def rel_var(m2_start, m2_end, T, n_steps):
+        lm = log_second_moment(m2_start, m2_end, T, n_steps)
+        dF_dir = 0.5 * np.sum(np.log((q2 + m2_end) / (q2 + m2_start)))
+        return np.inf if not np.isfinite(lm) else np.expm1(lm + 2 * dF_dir)
+
+    # Adiabatic estimate for the reverse ramp. In the continuum the tilted density obeys the Riccati equation
+    # db/dt = 2 w^2(t) b - 2 b^2 + 2 dm^2/dt with b(0) = w_i^2, and E[e^{-2W}] < inf iff b > 0 on [0, T] for every mode.
+    # A positive adiabatic branch b = (w^2 + sqrt(w^4 + 4 dm^2/dt))/2 exists only while w^4 >= 4 |dm^2/dt|.
+    T_ad = 4 * abs(m2_f - m2_i) / np.min(q2 + m2_i) ** 2
+    print(f"    exact relative variance of e^{{-W}}: forward sudden {rel_var(m2_i, m2_f, 1e-12, 1):.2f}; reverse ramp has "
+          f"no positive adiabatic branch unless T >= 4|Delta m^2|/w_min^4 = {T_ad:.4g}")
+
     def run(m2_start, m2_end, T):
         m2 = np.linspace(m2_start, m2_end, steps + 1)
         dt = T / steps
@@ -166,13 +195,16 @@ def part_d(L=16, m2_i=0.01, m2_f=1.0, durations=(0.2, 2.0, 20.0), M=100000, step
         from scipy.optimize import brentq
         g = lambda Cc: np.sum(1 / (1 + np.exp(np.clip(Wf - Cc, -700, 700)))) - np.sum(1 / (1 + np.exp(np.clip(Wr + Cc, -700, 700))))
         bar = brentq(g, Wf.min() - 50, Wf.max() + 50)
-        rows.append([T, Wf.mean(), Wf.mean() - dF, jar, jar_se, slope, bar])
+        rv_f, rv_r = rel_var(m2_i, m2_f, T, steps), rel_var(m2_f, m2_i, T, steps)
+        rows.append([T, Wf.mean(), Wf.mean() - dF, jar, jar_se, np.sqrt(rv_f / M), rv_f, rv_r, slope, bar])
         hists[T] = Wf
         print(f"    T={T:5.1f}: <W>={Wf.mean():+.4f} (dissipated {Wf.mean() - dF:.4f} >= 0); Jarzynski estimate "
               f"{jar:+.4f} +- {jar_se:.4f}; Crooks: slope of ln[P_F(W)/P_R(-W)] vs W = {slope:.3f} (expect 1), Bennett Delta F = {bar:+.4f}")
+        print(f"           exact relative variance of e^{{-W}}: forward {rv_f:.3f} (predicted s.e. {np.sqrt(rv_f / M):.4f}), "
+              f"reverse {rv_r}")
     R = np.array(rows)
-    savedata("jarzynski_crooks", ["T", "mean_W", "dissipated_W", "jarzynski_dF", "jarzynski_se", "crooks_slope", "bennett_dF"],
-             [R[:, i] for i in range(7)], [f"Gaussian ring field L={L}, m^2 {m2_i}->{m2_f}, exact Delta F={dF:.6f}, M={M}"])
+    savedata("jarzynski_crooks", ["T", "mean_W", "dissipated_W", "jarzynski_dF", "jarzynski_se", "predicted_se", "relvar_forward", "relvar_reverse", "crooks_slope", "bennett_dF"],
+             [R[:, i] for i in range(10)], [f"Gaussian ring field L={L}, m^2 {m2_i}->{m2_f}, exact Delta F={dF:.6f}, M={M}"])
     return dF, R, hists
 
 

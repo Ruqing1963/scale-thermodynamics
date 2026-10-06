@@ -11,7 +11,11 @@
     heat capacity: max C = 1.3597 = 0.6799 d at tau = 1.252; C(tau=1000) = 1.0003 (d/2 = 1.0); max |C - [d_s/2 - (1/2) d d_s/d ln tau]| = 3.4e-04; max d_s = 2.4355 = 1.2178 d
 [D] Gaussian ring field, L=16, m^2: 0.01 -> 1.0 (correlation length 10 -> 1); Delta F = 7.1254
     reverse protocol: min w_f^2/w_i^2 = 0.010 < 1/2, so the reverse Jarzynski estimator has infinite variance in the sudden limit
+    exact relative variance of e^{-W}: forward sudden 73.61; reverse ramp has no positive adiabatic branch unless T >= 4|Delta m^2|/w_min^4 = 3.96e+04
     T=  0.2: <W>=+55.6836 (dissipated 48.5582 >= 0); Jarzynski estimate +7.1402 +- 0.0234; Crooks: slope of ln[P_F(W)/P_R(-W)] vs W = 0.995 (expect 1), Bennett Delta F = +7.1310
+           exact relative variance of e^{-W}: forward 56.732 (predicted s.e. 0.0238), reverse inf
     T=  2.0: <W>=+36.7561 (dissipated 29.6307 >= 0); Jarzynski estimate +7.1385 +- 0.0147; Crooks: slope of ln[P_F(W)/P_R(-W)] vs W = 0.981 (expect 1), Bennett Delta F = +7.1334
+           exact relative variance of e^{-W}: forward 20.795 (predicted s.e. 0.0144), reverse inf
     T= 20.0: <W>=+15.8112 (dissipated 8.6858 >= 0); Jarzynski estimate +7.1262 +- 0.0068; Crooks: slope of ln[P_F(W)/P_R(-W)] vs W = 1.003 (expect 1), Bennett Delta F = +7.1216
+           exact relative variance of e^{-W}: forward 4.667 (predicted s.e. 0.0068), reverse inf
 figures written to figures/, data to data/

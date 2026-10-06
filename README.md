@@ -26,7 +26,8 @@ standard physics applied to scale, and conjecture, and checks every exact statem
   C = d x²(1 − r/x − r²) with x = 2τ and r = I₁/I₀; C has maximum 0.6799 d and tends to d/2.
 - **Fluctuation relations for a physical scale protocol.** For a lattice field whose correlation length is changed
   in time (ξ: 10 → 1), the Jarzynski and Crooks relations hold. The sudden-quench Jarzynski estimator has finite
-  variance if and only if ω_f²/ω_i² > 1/2 for every mode, so softening protocols fail. The Jarzynski and Bennett
+  variance if and only if ω_f²/ω_i² > 1/2 for every mode. For finite ramp times an exact Riccati equation for the
+  tilted Gaussian density shows that the softening protocol keeps an infinite variance at every simulated ramp time. The Jarzynski and Bennett
   estimates agree with the exact ΔF = 7.1254 to within 0.015.
 - **Landauer and the arrow of time.** Landauer's bound applies to physical erasure, not to the theorist's
   coarse-graining. The identification of the RG arrow with the arrow of time (dS/CFT, holographic c-theorems) is
@@ -71,7 +72,7 @@ Run from the repository root; the figure goes to `figures/` and data to `data/` 
 | `entropic_c_function.csv` | c(ℓ) and S(ℓ) of the lattice Dirac fermion, N = 1200, m = 0, 0.05, 0.1, 0.2 | §2.1, Fig. 1 |
 | `relative_entropy_vs_block.csv` | D(ρ_ℓ(m) ‖ σ_ℓ(0)) against block length | §2.2, Fig. 1 |
 | `spectral_thermodynamics.csv` | ln P, ⟨λ⟩, Var(λ), S(τ), C(τ) of the 2D square lattice | §3, Fig. 1 |
-| `jarzynski_crooks.csv` | mean and dissipated work, Jarzynski estimate ± s.e., Crooks slope, Bennett ΔF | §5, Table 1 |
+| `jarzynski_crooks.csv` | mean and dissipated work, Jarzynski estimate ± s.e., exact relative variances and predicted s.e., Crooks slope, Bennett ΔF | §5, Table 1 |
 
 To rebuild the paper (pdfLaTeX, two passes):
 

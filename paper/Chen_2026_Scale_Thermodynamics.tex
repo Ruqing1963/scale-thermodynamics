@@ -50,8 +50,9 @@ On scaling plateaus the spectral dimension is therefore twice a heat capacity. F
 given in closed form; it has a Schottky-type maximum $0.6799\,d$ and tends to the equipartition value $d/2$.
 Fourth, a physical protocol that changes the correlation length of a lattice field in time obeys the Jarzynski and
 Crooks relations exactly. We prove that the sudden-quench Jarzynski estimator has finite variance if and only if
-every mode stiffens by more than a factor $1/2$ in $\omega^2$, which explains why softening protocols fail in
-practice. Simulations of a stiffening protocol, combined with the Bennett acceptance ratio, recover $\Delta F$ to
+every mode stiffens by more than a factor $1/2$ in $\omega^2$. For finite ramp times, an exact Riccati equation
+for the tilted Gaussian density decides the question; it shows that the softening protocol keeps an infinite
+variance at every simulated ramp time. Simulations of a stiffening protocol, combined with the Bennett acceptance ratio, recover $\Delta F$ to
 within $0.015$.
 
 Landauer's bound applies to physical erasure, not to the theorist's coarse-graining map. The identification of the
@@ -268,6 +269,14 @@ On a scaling plateau where $d_s$ is constant, $d_s=2C$. In flat $\RR^d$, $C=d/2$
 contributes $1/2$, as in equipartition.
 \end{corollary}
 
+\paragraph{Infinite lattices.}
+On an infinite graph such as $\ZZ^d$ there is no uniform distribution on the eigenvalues, but none is needed. The
+uniform distributions on the spectra of the tori $(\ZZ/n\ZZ)^d$ converge weakly to the density-of-states measure
+$\mu$, a probability measure on $[0,4d]$. Replacing $\bar\rho$ by $\mu$ and $\pi_\tau$ by $\dd\pi_\tau=e^{-\tau\lambda}\dd\mu/P$,
+$P(\tau)=\int e^{-\tau\lambda}\dd\mu(\lambda)$ is the return probability per site. Proposition~\ref{prop:spectral}
+then holds verbatim with $S(\tau)=-D(\pi_\tau\Vert\mu)$, which is finite. Only the form $H(\pi_\tau)-\ln V$ has no
+limit, because each of its two terms diverges. No divergent constant needs to be subtracted.
+
 \paragraph{Hypercubic lattice.}
 For $\ZZ^d$ with unit spacing, $P=(e^{-x}I_0(x))^d$ with $x=2\tau$~\cite{Chen2026_qgc}. Writing $r=I_1(x)/I_0(x)$
 and using $r'=1-r/x-r^2$,
@@ -324,7 +333,11 @@ Section~\ref{sec:dpi}, not a sign of $\Delta S$.
 The Jarzynski equality~\cite{Jarzynski97} and the Crooks relation~\cite{Crooks} require a physical system driven
 by a time-dependent control parameter. The RG flow itself is not such a protocol. A physical protocol that changes
 the \emph{scale} of a system is, however, easy to construct: change the mass, and hence the correlation length, of
-a field in time. The standard relations then hold, and in this sense they apply to scale.
+a field in time. The standard relations then hold, and in this sense they apply to scale. We treat a classical
+field. For quantum systems, work is defined by two projective energy measurements and is not an
+observable~\cite{TLH}. The statistics of the work done by quenching a parameter of a quantum many-body system, such
+as the transverse field of the Ising chain, are related to the Loschmidt echo~\cite{Silva}. A quantum version of the
+protocol below would be described in that framework.
 
 \paragraph{Model.}
 Let $\phi\in\RR^L$ be a field on a ring with
@@ -368,10 +381,44 @@ and $+\infty$ otherwise. Dividing by $(\mathbb E\,e^{-W})^2=\prod_kR_k^{-1}$ giv
 \end{proof}
 
 For our ring ($L=16$) the forward (stiffening) protocol has $\min_kR_k=1.25$ and a sudden-limit relative variance of
-$73.6$. The reverse (softening) protocol has $R_0=0.01<1/2$, so its estimator has infinite variance. This is why
-a first attempt that used the softening direction as the forward protocol gave estimates biased by more than one
-unit. Estimates of $\Delta F$ should therefore be taken from the stiffening direction, or from the Bennett acceptance
-ratio~\cite{BAR,Shirts}, which combines both directions optimally.
+$73.6$. The reverse (softening) protocol has $R_0=0.01<1/2$, so its sudden-limit estimator has infinite variance.
+
+\paragraph{Finite ramp times.}
+One might expect a finite switching time to restore a finite variance. For Gaussian dynamics this question can be
+decided exactly.
+
+\begin{proposition}
+\label{prop:riccati}
+For the dynamics~\eqref{eq:langevin} with a linear ramp of rate $\dot m^2$, $\mathbb E\,e^{-2W}<\infty$ if and only if,
+for every mode $k$, the solution of
+\begin{equation}
+\dot b_k=2\omega_k^2(t)\,b_k-2b_k^2+2\dot m^2,\qquad b_k(0)=\omega_{i,k}^2,
+\label{eq:riccati}
+\end{equation}
+stays positive on $[0,T]$. A positive adiabatic branch $b=\tfrac12\bigl(\omega^2+\sqrt{\omega^4+4\dot m^2}\bigr)$
+exists only while $\omega_k^4\ge4|\dot m^2|$.
+\end{proposition}
+
+\begin{proof}
+The tilted density $\tilde\rho(\phi_k,t)=\mathbb E[\delta(\phi_k(t)-\phi_k)\,e^{-2W_k(t)}]$ obeys, by the
+Feynman--Kac formula, $\partial_t\tilde\rho=\partial_\phi(\omega_k^2\phi\tilde\rho)+\partial_\phi^2\tilde\rho
+-\dot m^2\phi^2\tilde\rho$. The Gaussian ansatz $\tilde\rho=A(t)\,e^{-b(t)\phi^2/2}$ solves it if $b$
+obeys~\eqref{eq:riccati} and $\dot A/A=\omega_k^2-b$. The total weight $\mathbb E\,e^{-2W_k}=A\sqrt{2\pi/b}$ is finite if
+and only if $b$ stays positive; once $b$ reaches $0$ the tilted density is no longer normalisable. The adiabatic
+branch is the positive root of the right-hand side of~\eqref{eq:riccati}.
+\end{proof}
+
+For softening ramps $\dot m^2<0$ pushes $b$ down. For our reverse protocol the adiabatic branch of the $k=0$ mode
+disappears at the end of the ramp unless $T\ge4|\Delta m^2|/\omega_{\min}^4\approx4\times10^4$. For the discrete
+protocol actually simulated, the same propagation is exact: each switch adds $2\Delta m^2$ to $b$, and each relaxation
+step propagates the variance exactly. It gives an infinite second moment for the reverse protocol at $T=0.2$, $2$ and
+$20$. The divergence is therefore not an artefact of the sudden limit. The weight $e^{-W}$ grows with $|\phi|^2$
+when $\dot m^2<0$, and it grows faster than the Gaussian tail of the stiff initial ensemble decays. This is why a
+first attempt that used the softening direction as the forward protocol gave estimates biased by more than one
+unit. For the forward protocol the same calculation gives relative variances $56.7$, $20.8$ and $4.67$. With
+$M=10^5$ these predict standard errors $0.024$, $0.014$ and $0.0068$, in agreement with the observed ones in
+Table~\ref{tab:jc}. Estimates of $\Delta F$ should therefore be taken from the stiffening direction, or from the
+Bennett acceptance ratio~\cite{BAR,Shirts}, which combines both directions optimally.
 
 \paragraph{Simulation.}
 We integrate~\eqref{eq:langevin} exactly, mode by mode, using the Ornstein--Uhlenbeck propagator over $400$ steps, for
@@ -424,6 +471,11 @@ condition to the dual theory, as a condition on which endpoint of the flow corre
 not derive it. Moreover, microscopic dynamics is time-reversal invariant (up to CPT), whereas the $c$-theorem
 concerns a flow in the space of theories, not the evolution of states. A precise version of the conjecture
 must therefore specify which bulk entropy is meant and how the boundary condition at one end of the flow is chosen.
+There are two natural geometric candidates. One is the entropy on light-sheets, bounded by the area of their base
+surfaces through the covariant entropy bound~\cite{Bousso1999}. The other is the area of the leaves of a past
+holographic screen, which increases monotonically in any expanding universe; this is a theorem of classical general
+relativity~\cite{BoussoEngelhardt}. Relating either quantity to an RG $c$-function of a dual theory is exactly what
+the conjecture would require.
 dS/CFT itself is not established: the putative dual theories are non-unitary. For these reasons we regard
 Conjecture~\ref{conj:arrow} as a research direction, not as a result.
 
@@ -511,6 +563,10 @@ estimate solves
 \bibitem{Jarzynski2006} C.~Jarzynski, ``Rare events and the convergence of exponentially averaged work values'', Phys.\ Rev.\ E 73 (2006) 046105, arXiv:cond-mat/0603185.
 \bibitem{BAR} C.~H.~Bennett, ``Efficient estimation of free energy differences from Monte Carlo data'', J.\ Comput.\ Phys.\ 22 (1976) 245--268.
 \bibitem{Shirts} M.~R.~Shirts, E.~Bair, G.~Hooker, V.~S.~Pande, ``Equilibrium free energies from nonequilibrium measurements using maximum-likelihood methods'', Phys.\ Rev.\ Lett.\ 91 (2003) 140601, arXiv:cond-mat/0306412.
+\bibitem{TLH} P.~Talkner, E.~Lutz, P.~H\"anggi, ``Fluctuation theorems: Work is not an observable'', Phys.\ Rev.\ E 75 (2007) 050102(R), arXiv:cond-mat/0703189.
+\bibitem{Silva} A.~Silva, ``Statistics of the work done on a quantum critical system by quenching a control parameter'', Phys.\ Rev.\ Lett.\ 101 (2008) 120603, arXiv:0806.4301.
+\bibitem{Bousso1999} R.~Bousso, ``A covariant entropy conjecture'', JHEP 07 (1999) 004, arXiv:hep-th/9905177.
+\bibitem{BoussoEngelhardt} R.~Bousso, N.~Engelhardt, ``New area law in general relativity'', Phys.\ Rev.\ Lett.\ 115 (2015) 081301, arXiv:1504.07627.
 \bibitem{Albert} D.~Z.~Albert, \emph{Time and Chance}, Harvard University Press (2000).
 \end{thebibliography}
 
