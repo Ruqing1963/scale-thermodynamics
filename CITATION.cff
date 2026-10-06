@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the paper below."
+title: "Thermodynamics of Scale: code, data and figures"
+authors:
+  - family-names: Chen
+    given-names: Ruqing
+    affiliation: "GUT Geoservice Inc., Montreal"
+    email: ruqing@hotmail.com
+repository-code: "https://github.com/Ruqing1963/scale-thermodynamics"
+doi: 10.5281/zenodo.XXXXXXXX
+date-released: 2026-10-06
+license: MIT
+keywords:
+  - renormalization group
+  - c-theorem
+  - entanglement entropy
+  - relative entropy
+  - data processing inequality
+  - spectral dimension
+  - Jarzynski equality
+  - Crooks fluctuation theorem
+  - Landauer principle
+  - arrow of time
+preferred-citation:
+  type: article
+  title: "Thermodynamics of Scale: Entropic c-Functions, Data Processing, Spectral Thermodynamics, Fluctuation Relations, and the Arrow of Time"
+  authors:
+    - family-names: Chen
+      given-names: Ruqing
+      affiliation: "GUT Geoservice Inc., Montreal"
+  year: 2026
+  doi: 10.5281/zenodo.XXXXXXXX

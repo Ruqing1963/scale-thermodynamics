@@ -1,0 +1,17 @@
+﻿[A] lattice Dirac fermion, N=1200, half filling, blocks l = 4..200 (even)
+    m=0.00: c(4)=1.125  c(200)=0.907  max SSA violation S(l+2)+S(l-2)-2S(l) = -3.7e-05  monotone decrease: n/a (largest increase -4.5e-04)
+    m=0.05: c(4)=1.044  c(200)=0.000  max SSA violation S(l+2)+S(l-2)-2S(l) = -4.9e-08  monotone decrease: True (largest increase -1.4e-05)
+    m=0.10: c(4)=0.931  c(200)=0.000  max SSA violation S(l+2)+S(l-2)-2S(l) = -5.3e-12  monotone decrease: True (largest increase -1.9e-09)
+    m=0.20: c(4)=0.719  c(200)=0.000  max SSA violation S(l+2)+S(l-2)-2S(l) = +6.8e-13  monotone decrease: True (largest increase +1.0e-10)
+[B] relative entropy D(rho_l(m) || sigma_l(m=0)) is non-decreasing in l (data processing):
+    m=0.05: D(l=4)=0.0248  D(l=200)=12.8515  min increment +2.3e-02
+    m=0.10: D(l=4)=0.0720  D(l=200)=38.7311  min increment +6.4e-02
+    m=0.20: D(l=4)=0.1967  D(l=200)=109.0240  min increment +1.7e-01
+[C] d=2 lattice spectrum: S(tau) = -D(pi_tau||rho) runs from -2.000e-06 to -8.439; max dS/dtau = -1.0e-03 (<= 0); min heat capacity = 4.000e-06 (>= 0)
+    heat capacity: max C = 1.3597 = 0.6799 d at tau = 1.252; C(tau=1000) = 1.0003 (d/2 = 1.0); max |C - [d_s/2 - (1/2) d d_s/d ln tau]| = 3.4e-04; max d_s = 2.4355 = 1.2178 d
+[D] Gaussian ring field, L=16, m^2: 0.01 -> 1.0 (correlation length 10 -> 1); Delta F = 7.1254
+    reverse protocol: min w_f^2/w_i^2 = 0.010 < 1/2, so the reverse Jarzynski estimator has infinite variance in the sudden limit
+    T=  0.2: <W>=+55.6836 (dissipated 48.5582 >= 0); Jarzynski estimate +7.1402 +- 0.0234; Crooks: slope of ln[P_F(W)/P_R(-W)] vs W = 0.995 (expect 1), Bennett Delta F = +7.1310
+    T=  2.0: <W>=+36.7561 (dissipated 29.6307 >= 0); Jarzynski estimate +7.1385 +- 0.0147; Crooks: slope of ln[P_F(W)/P_R(-W)] vs W = 0.981 (expect 1), Bennett Delta F = +7.1334
+    T= 20.0: <W>=+15.8112 (dissipated 8.6858 >= 0); Jarzynski estimate +7.1262 +- 0.0068; Crooks: slope of ln[P_F(W)/P_R(-W)] vs W = 1.003 (expect 1), Bennett Delta F = +7.1216
+figures written to figures/, data to data/
