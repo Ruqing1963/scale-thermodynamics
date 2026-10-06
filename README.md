@@ -1,12 +1,12 @@
 # Thermodynamics of Scale
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXXX)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23199122.svg)](https://doi.org/10.5281/zenodo.23199122)
 
 Code, data, figures and manuscript for
 
 > **R. Chen**, *Thermodynamics of Scale: Entropic c-Functions, Data Processing, Spectral Thermodynamics,
 > Fluctuation Relations, and the Arrow of Time* (2026).
-> DOI: [10.5281/zenodo.XXXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXXX)
+> DOI: [10.5281/zenodo.23199122](https://doi.org/10.5281/zenodo.23199122)
 
 ## Summary
 
@@ -89,8 +89,8 @@ pdflatex Chen_2026_Scale_Thermodynamics.tex
   title  = {Thermodynamics of Scale: Entropic c-Functions, Data Processing, Spectral Thermodynamics,
             Fluctuation Relations, and the Arrow of Time},
   year   = {2026},
-  doi    = {10.5281/zenodo.XXXXXXXX},
-  url    = {https://doi.org/10.5281/zenodo.XXXXXXXX}
+  doi    = {10.5281/zenodo.23199122},
+  url    = {https://doi.org/10.5281/zenodo.23199122}
 }
 ```
 
